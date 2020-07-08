@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
+import Layout from './Layout/Layout';
+import ThemeContext from './contex/ThemeContext';
+import { themeConfig } from './contex/ThemeContext';
+import Header from './Header/Header';
 import ContactListForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
 import ContactList from './ContactList/ContactList';
@@ -10,6 +14,7 @@ import { INITIAL_STATE_APP } from '../componets/helpers/constants';
 class App extends Component {
   state = {
     ...INITIAL_STATE_APP,
+    theme: 'light',
   };
 
   componentDidMount() {
@@ -68,6 +73,12 @@ class App extends Component {
     });
   };
 
+  toggleTheme = () => {
+    this.setState({
+      theme: this.state.theme === 'dark' ? 'light' : 'dark',
+    });
+  };
+
   render() {
     const { filter } = this.state;
     const { contacts } = this.state;
@@ -75,26 +86,36 @@ class App extends Component {
     const showContacts = contacts.length;
 
     return (
-      <div>
-        <h1>Phonebook</h1>
-        <>
-          <ContactListForm onAddContacts={this.addContacts} />
-          <h2>Contacts</h2>
-        </>
-        {showContacts > 1 && (
-          <>
-            <h3>Find my contacts</h3>
-            <Filter value={filter} onChange={this.changeFilter} />
-          </>
-        )}
+      <Layout>
+        <ThemeContext.Provider
+          value={{
+            type: this.state.theme,
+            config: themeConfig[this.state.theme],
+          }}
+        >
+          <Header toggleTheme={this.toggleTheme} />
+          <div>
+            <h1>Phonebook</h1>
+            <>
+              <ContactListForm onAddContacts={this.addContacts} />
+              <h2>Contacts</h2>
+            </>
+            {showContacts > 1 && (
+              <>
+                <h3>Find my contacts</h3>
+                <Filter value={filter} onChange={this.changeFilter} />
+              </>
+            )}
 
-        {showContacts > 0 && (
-          <ContactList
-            contacts={visibleContacts}
-            onRemove={this.removeContacts}
-          />
-        )}
-      </div>
+            {showContacts > 0 && (
+              <ContactList
+                contacts={visibleContacts}
+                onRemove={this.removeContacts}
+              />
+            )}
+          </div>
+        </ThemeContext.Provider>
+      </Layout>
     );
   }
 }

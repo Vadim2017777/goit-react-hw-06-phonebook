@@ -1,4 +1,4 @@
-import React from 'react';
+import { createContext } from 'react';
 
 export const themeConfig = {
   light: {
@@ -12,5 +12,6 @@ export const themeConfig = {
     bodybg: 'black',
   },
 };
-const ThemeContext = React.createContext(themeConfig.light);
+const ThemeContext = createContext(themeConfig.light);
+
 export default ThemeContext;
