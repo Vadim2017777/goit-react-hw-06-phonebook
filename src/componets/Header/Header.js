@@ -1,39 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import whithTheme from '../hoc/whithTeme';
+import whithTheme from '../../hoc/whithTeme';
 
-import ThemeContext from '../contex/ThemeContext';
-
-// export default class Header extends Component {
-//   render() {
-//     return (
-//       <ThemeContext.Consumer>
-//         {theme => (
-//           <header
-//             style={{
-//               background: theme.config.headerBg,
-//               color: theme.config.fontColor,
-//             }}
-//           >
-//             <div className="theme-selector">
-//               <label className="switch">
-//                 Change colore
-//                 <input
-//                   type="checkbox"
-//                   checked={theme.type === 'light'}
-//                   onChange={event =>
-//                     this.props.toggleTheme(event.currentTarget.value)
-//                   }
-//                 />
-//                 <span className="slider round"></span>
-//               </label>
-//             </div>
-//           </header>
-//         )}
-//       </ThemeContext.Consumer>
-//     );
-//   }
-// }
+import styles from './Header.module.css';
 
 const Header = ({ theme, toggleTheme }) => (
   <header
@@ -42,15 +11,18 @@ const Header = ({ theme, toggleTheme }) => (
       color: theme.config.fontColor,
     }}
   >
-    <div className="theme-selector">
-      <label className="switch">
-        Change colore
+    <div className={styles.theme_selector}>
+      <span className={styles.label}>
+        Toggle theme: {''}
+        {theme.type}
+      </span>
+      <label className={styles.switch}>
         <input
           type="checkbox"
           checked={theme.type === 'light'}
           onChange={event => toggleTheme(event.currentTarget.value)}
         />
-        <span className="slider round"></span>
+        <span className={styles.slider}></span>
       </label>
     </div>
   </header>

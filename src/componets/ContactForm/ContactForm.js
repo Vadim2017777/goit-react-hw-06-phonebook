@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { INITIAL_STATE_FORM } from '../helpers/constants';
+import { INITIAL_STATE_FORM } from '../../helpers/constants';
 
-import './ContactForm.module.css';
+import styles from './ContactForm.module.css';
 
 export default class ContactForm extends Component {
   state = {
@@ -30,27 +30,34 @@ export default class ContactForm extends Component {
     const { name, number } = this.state;
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Name
-          <input
-            type="text"
-            value={name}
-            name="name"
-            onChange={this.handleInputChange}
-          />
-        </label>
-        <label>
-          Number
-          <input
-            type="tel"
-            value={number}
-            name="number"
-            onChange={this.handleInputChange}
-          />
-        </label>
-        <button type="submit">Add contact</button>
-      </form>
+      <div className={styles.phoneBook_form}>
+        <h2 className={styles.phoneBook_item}>Phonebook</h2>
+        <form onSubmit={this.handleSubmit}>
+          <label className={styles.phoneBook_lb}>
+            Name
+            <input
+              className={styles.phoneBook_inp}
+              type="text"
+              value={name}
+              name="name"
+              onChange={this.handleInputChange}
+            />
+          </label>
+          <label className={styles.phoneBook_lb}>
+            Number
+            <input
+              className={styles.phoneBook_inp}
+              type="tel"
+              value={number}
+              name="number"
+              onChange={this.handleInputChange}
+            />
+          </label>
+          <button type="submit" className={styles.buttonPhonBk}>
+            Add contact
+          </button>
+        </form>
+      </div>
     );
   }
 }

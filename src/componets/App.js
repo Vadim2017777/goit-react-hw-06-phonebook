@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import { CSSTransition } from 'react-transition-group';
 
-import Layout from './Layout/Layout';
-import ThemeContext from './contex/ThemeContext';
-import { themeConfig } from './contex/ThemeContext';
 import Header from './Header/Header';
+import Body from './Body/Body';
 import ContactListForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
 import ContactList from './ContactList/ContactList';
 
-import { INITIAL_STATE_APP } from '../componets/helpers/constants';
+import { INITIAL_STATE_APP } from '../helpers/constants';
+import ThemeContext, { themeConfig } from '../contex/ThemeContext';
+import { v4 as uuidv4 } from 'uuid';
+
+import fadeTransition from './transitions/fade.module.css';
 
 class App extends Component {
   state = {
     ...INITIAL_STATE_APP,
-    theme: 'light',
   };
 
   componentDidMount() {
@@ -74,48 +75,44 @@ class App extends Component {
   };
 
   toggleTheme = () => {
+    const { theme } = this.state;
     this.setState({
-      theme: this.state.theme === 'dark' ? 'light' : 'dark',
+      theme: theme === 'dark' ? 'light' : 'dark',
     });
   };
 
   render() {
-    const { filter } = this.state;
-    const { contacts } = this.state;
+    const { theme, filter, contacts } = this.state;
     const visibleContacts = this.getVisibleContacts();
     const showContacts = contacts.length;
 
     return (
-      <Layout>
-        <ThemeContext.Provider
-          value={{
-            type: this.state.theme,
-            config: themeConfig[this.state.theme],
-          }}
-        >
-          <Header toggleTheme={this.toggleTheme} />
-          <div>
-            <h1>Phonebook</h1>
-            <>
-              <ContactListForm onAddContacts={this.addContacts} />
-              <h2>Contacts</h2>
-            </>
-            {showContacts > 1 && (
-              <>
-                <h3>Find my contacts</h3>
-                <Filter value={filter} onChange={this.changeFilter} />
-              </>
-            )}
+      <ThemeContext.Provider
+        value={{
+          type: theme,
+          config: themeConfig[theme],
+        }}
+      >
+        <Header toggleTheme={this.toggleTheme} />
+        <Body>
+          <ContactListForm onAddContacts={this.addContacts} />
+          {showContacts > 1 && (
+            <Filter value={filter} onChange={this.changeFilter} />
+          )}
 
-            {showContacts > 0 && (
-              <ContactList
-                contacts={visibleContacts}
-                onRemove={this.removeContacts}
-              />
-            )}
-          </div>
-        </ThemeContext.Provider>
-      </Layout>
+          <CSSTransition
+            in={showContacts > 0}
+            timeout={250}
+            classNames={fadeTransition}
+            unmountOnExit
+          >
+            <ContactList
+              contacts={visibleContacts}
+              onRemove={this.removeContacts}
+            />
+          </CSSTransition>
+        </Body>
+      </ThemeContext.Provider>
     );
   }
 }

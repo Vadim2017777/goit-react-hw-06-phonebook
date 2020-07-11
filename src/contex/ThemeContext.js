@@ -2,9 +2,9 @@ import { createContext } from 'react';
 
 export const themeConfig = {
   light: {
-    headerBg: '#F7B30C',
-    fontColor: 'black',
-    bodybg: 'white',
+    headerBg: '#d2e0e3',
+    fontColor: '#2a5c69',
+    bodybg: '#9ab7ba',
   },
   dark: {
     headerBg: '#3c3c3c',

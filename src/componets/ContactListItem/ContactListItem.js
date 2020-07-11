@@ -1,21 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './ContactListItem.module.css';
+import whithTheme from '../../hoc/whithTeme';
 
-const TaskListItem = ({ name, number, onRemove }) => (
-  <li>
-    <p>
+import styles from './ContactListItem.module.css';
+
+const TaskListItem = ({ theme, name, number, onRemove }) => (
+  <li className={styles.list_PhoneLs}>
+    <p
+      style={{
+        color: theme.config.fontColor,
+        background: theme.config.bodybg,
+      }}
+    >
       {name}:{number}
     </p>
 
-    <button type="button" onClick={onRemove}>
+    <button type="button" className={styles.buttonPhoneLs} onClick={onRemove}>
       Delete
     </button>
   </li>
 );
 
-export default TaskListItem;
+export default whithTheme(TaskListItem);
 
 TaskListItem.defaultProps = {
   contacts: [],
