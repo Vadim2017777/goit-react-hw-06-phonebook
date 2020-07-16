@@ -4,11 +4,11 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import ContactListItem from '../ContactListItem/ContactListItem';
 
-import styles from './ContactList.module.css';
+import s from './ContactList.module.css';
 import transition from '../ContactList/transitions/ContactLsTransition.module.css';
 
 const ContactList = ({ contacts, onRemove }) => (
-  <div className={styles.Contact_list}>
+  <div className={s.Contact_list}>
     <h2>Contacts</h2>
     <TransitionGroup component="ul">
       {contacts.map(({ id, name, number }) => (

@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import actions from '../../redux/Contact/contactActions';
 
 import { INITIAL_STATE_FORM } from '../../helpers/constants';
 
-import styles from './ContactForm.module.css';
+import s from './ContactForm.module.css';
 
-export default class ContactForm extends Component {
+class ContactForm extends Component {
   state = {
-    ...INITIAL_STATE_FORM,
+    name: '',
+    number: '',
   };
 
   handleInputChange = ({ target }) => {
@@ -30,30 +33,30 @@ export default class ContactForm extends Component {
     const { name, number } = this.state;
 
     return (
-      <div className={styles.phoneBook_form}>
-        <h2 className={styles.phoneBook_item}>Phonebook</h2>
+      <div className={s.phoneBook_form}>
+        <h2 className={s.phoneBook_item}>Phonebook</h2>
         <form onSubmit={this.handleSubmit}>
-          <label className={styles.phoneBook_lb}>
+          <label className={s.phoneBook_lb}>
             Name
             <input
-              className={styles.phoneBook_inp}
+              className={s.phoneBook_inp}
               type="text"
               value={name}
               name="name"
               onChange={this.handleInputChange}
             />
           </label>
-          <label className={styles.phoneBook_lb}>
+          <label className={s.phoneBook_lb}>
             Number
             <input
-              className={styles.phoneBook_inp}
+              className={s.phoneBook_inp}
               type="tel"
               value={number}
               name="number"
               onChange={this.handleInputChange}
             />
           </label>
-          <button type="submit" className={styles.buttonPhonBk}>
+          <button type="submit" className={s.buttonPhonBk}>
             Add contact
           </button>
         </form>
@@ -61,6 +64,9 @@ export default class ContactForm extends Component {
     );
   }
 }
+
+const mDTP = { onAddContacts: actions.addContacts };
+export default connect(null, mDTP)(ContactForm);
 
 ContactForm.propTypes = {
   onRemove: PropTypes.func,

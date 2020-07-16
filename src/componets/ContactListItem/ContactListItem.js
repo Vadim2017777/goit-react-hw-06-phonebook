@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 import whithTheme from '../../hoc/whithTeme';
 
-import styles from './ContactListItem.module.css';
+import s from './ContactListItem.module.css';
 
 const TaskListItem = ({ theme, name, number, onRemove }) => (
-  <li className={styles.list_PhoneLs}>
+  <li className={s.list_PhoneLs}>
     <p
       style={{
         color: theme.config.fontColor,
@@ -16,7 +16,7 @@ const TaskListItem = ({ theme, name, number, onRemove }) => (
       {name}:{number}
     </p>
 
-    <button type="button" className={styles.buttonPhoneLs} onClick={onRemove}>
+    <button type="button" className={s.buttonPhoneLs} onClick={onRemove}>
       Delete
     </button>
   </li>

@@ -36,7 +36,8 @@ class App extends Component {
   }
 
   addContacts = ({ name, number }) => {
-    const contacts = {
+    let { contacts } = this.state;
+    contacts = {
       id: uuidv4(),
       name,
       number,
@@ -62,8 +63,7 @@ class App extends Component {
     });
   };
 
-  changeFilter = ({ target }) => {
-    const filter = target.value;
+  changeFilter = filter => {
     this.setState({ filter });
   };
 
@@ -95,7 +95,7 @@ class App extends Component {
       >
         <Header toggleTheme={this.toggleTheme} />
         <Body>
-          <ContactListForm onAddContacts={this.addContacts} />
+          <ContactListForm />
           {showContacts > 1 && (
             <Filter value={filter} onChange={this.changeFilter} />
           )}
