@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import actions from '../../redux/Contact/contactActions';
 
 import s from './Filter.module.css';
 
@@ -8,14 +10,22 @@ const Filter = ({ filter, onChange }) => (
     <h3>Find my contacts</h3>
     <input
       type="text"
-      value={filter}
       className={s.phone_filterInp}
+      value={filter}
       onChange={e => onChange(e.target.value)}
     />
   </div>
 );
 
-export default Filter;
+const mSTP = state => ({
+  value: state.contacts.filter,
+});
+
+const mDTP = {
+  onChange: actions.changeFilter,
+};
+
+export default connect(mSTP, mDTP)(Filter);
 
 Filter.propTypes = {
   filter: PropTypes.string,

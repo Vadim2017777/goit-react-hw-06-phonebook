@@ -9,7 +9,6 @@ import ContactList from './ContactList/ContactList';
 
 import { INITIAL_STATE_APP } from '../helpers/constants';
 import ThemeContext, { themeConfig } from '../contex/ThemeContext';
-import { v4 as uuidv4 } from 'uuid';
 
 import fadeTransition from './transitions/fade.module.css';
 
@@ -35,44 +34,16 @@ class App extends Component {
     }
   }
 
-  addContacts = ({ name, number }) => {
-    let { contacts } = this.state;
-    contacts = {
-      id: uuidv4(),
-      name,
-      number,
-    };
-    const overlap = this.state.contacts.some(
-      contacts => contacts.name === name,
-    );
+  // changeFilter = filter => {
+  //   this.setState({ filter });
+  // };
 
-    if (!overlap) {
-      this.setState(prevState => {
-        return {
-          contacts: [...prevState.contacts, contacts],
-        };
-      });
-    } else alert(`${name} is already in contacts`);
-  };
-
-  removeContacts = id => {
-    this.setState(prevState => {
-      return {
-        contacts: prevState.contacts.filter(contact => contact.id !== id),
-      };
-    });
-  };
-
-  changeFilter = filter => {
-    this.setState({ filter });
-  };
-
-  getVisibleContacts = () => {
-    const { contacts, filter } = this.state;
-    return contacts.filter(contact => {
-      return contact.name.toLowerCase().includes(filter.toLowerCase());
-    });
-  };
+  // getVisibleContacts = () => {
+  //   const { contacts, filter } = this.state;
+  //   return contacts.filter(contact => {
+  //     return contact.name.toLowerCase().includes(filter.toLowerCase());
+  //   });
+  // };
 
   toggleTheme = () => {
     const { theme } = this.state;
@@ -83,8 +54,8 @@ class App extends Component {
 
   render() {
     const { theme, filter, contacts } = this.state;
-    const visibleContacts = this.getVisibleContacts();
-    const showContacts = contacts.length;
+    // const visibleContacts = this.getVisibleContacts();
+    // const showContacts = contacts.length;
 
     return (
       <ThemeContext.Provider
@@ -96,21 +67,19 @@ class App extends Component {
         <Header toggleTheme={this.toggleTheme} />
         <Body>
           <ContactListForm />
-          {showContacts > 1 && (
+          <Filter />
+          {/* {showContacts > 1 && (
             <Filter value={filter} onChange={this.changeFilter} />
-          )}
+          )} */}
 
-          <CSSTransition
+          {/* <CSSTransition
             in={showContacts > 0}
             timeout={250}
             classNames={fadeTransition}
             unmountOnExit
-          >
-            <ContactList
-              contacts={visibleContacts}
-              onRemove={this.removeContacts}
-            />
-          </CSSTransition>
+          > */}
+          <ContactList />
+          {/* </CSSTransition> */}
         </Body>
       </ThemeContext.Provider>
     );

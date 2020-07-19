@@ -1,29 +1,32 @@
 import { combineReducers } from 'redux';
-import actionTypes from './contactActionsTypes';
+import action from './contactActionsTypes';
 
 const items = (state = [], { type, payload }) => {
   switch (type) {
-    case actionTypes.ADD:
+    case action.ADD:
       return [...state, payload.items];
+
+    case action.REMOVE:
+      return state.filter(contact => contact.id !== payload.contactId);
 
     default:
       return state;
   }
 };
 
-// const filter = (state = [], action) => {
-//   // switch (action.ADD) {
-//   //   case action.ADD:
-//   //     return state.contacts.filter(contact => contact.id !== action.id);
+const filter = (state = '', { type, payload }) => {
+  switch (type) {
+    case action.CHANGE_FILTER:
+      return payload.filter;
 
-//   //   default:
-//   return state;
-//   // }
-// };
+    default:
+      return state;
+  }
+};
 
 export default combineReducers({
   items,
-  // filter,
+  filter,
 });
 
 // addContacts = ({ name, number }) => {

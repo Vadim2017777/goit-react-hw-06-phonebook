@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+
+import contactActions from '../../redux/Contact/contactActions';
 
 import ContactListItem from '../ContactListItem/ContactListItem';
 
@@ -25,7 +28,24 @@ const ContactList = ({ contacts, onRemove }) => (
   </div>
 );
 
-export default ContactList;
+const mSTP = state => {
+  const { items, filter } = state.contacts;
+  const normalizedFilter = filter.toLowerCase();
+
+  const visibleTasks = items.filter(contact =>
+    contact.name.toLowerCase().includes(normalizedFilter),
+  );
+
+  return {
+    contacts: visibleTasks,
+  };
+};
+
+const mDTP = {
+  onRemove: contactActions.removeContacts,
+};
+
+export default connect(mSTP, mDTP)(ContactList);
 
 ContactList.propTypes = {
   onRemove: PropTypes.func.isRequired,

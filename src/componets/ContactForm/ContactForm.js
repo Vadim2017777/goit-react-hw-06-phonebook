@@ -15,18 +15,25 @@ class ContactForm extends Component {
 
   handleInputChange = ({ target }) => {
     const { name, value } = target;
+
     this.setState({ [name]: value });
   };
 
   handleSubmit = e => {
-    const { onAddContacts } = this.props;
+    const { contacts, onAddContacts } = this.props;
+    const { name } = this.state;
+
     e.preventDefault();
-    onAddContacts({ ...this.state });
-    this.reset();
+
+    const overlap = contacts.some(contacts => contacts.name === name);
+    if (!overlap) {
+      this.reset();
+      return onAddContacts({ ...this.state });
+    } else alert(`${name} is already in contacts`);
   };
 
   reset = () => {
-    this.setState({ ...INITIAL_STATE_FORM });
+    this.setState({ ...this.state });
   };
 
   render() {
@@ -66,8 +73,9 @@ class ContactForm extends Component {
 }
 
 const mDTP = { onAddContacts: actions.addContacts };
-export default connect(null, mDTP)(ContactForm);
+const mSTP = state => ({ contacts: state.contacts.items });
 
+export default connect(mSTP, mDTP)(ContactForm);
 ContactForm.propTypes = {
   onRemove: PropTypes.func,
 };
