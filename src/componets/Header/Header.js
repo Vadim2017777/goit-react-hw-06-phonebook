@@ -1,26 +1,29 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-import whithTheme from '../../hoc/whithTeme';
+import actions from '../../redux/Contact/contactActions';
+
+import styleConxt from '../../contex/ThemeContext';
 
 import styles from './Header.module.css';
+const dark = 'dark';
 
 const Header = ({ theme, toggleTheme }) => (
   <header
     style={{
-      background: theme.config.headerBg,
-      color: theme.config.fontColor,
+      background: styleConxt.dark.headerBg,
+      color: styleConxt.dark.fontColor,
     }}
   >
     <div className={styles.theme_selector}>
       <span className={styles.label}>
         Toggle theme: {''}
-        {theme.type}
+        {dark}
       </span>
       <label className={styles.switch}>
         <input
           type="checkbox"
-          checked={theme.type === 'light'}
-          onChange={event => toggleTheme(event.currentTarget.value)}
+          onChange={event => toggleTheme(event.currentTarget.checked)}
         />
         <span className={styles.slider}></span>
       </label>
@@ -28,4 +31,7 @@ const Header = ({ theme, toggleTheme }) => (
   </header>
 );
 
-export default whithTheme(Header);
+const mDTP = { toggleTheme: actions.changeTheme };
+const mSTP = state => ({ theme: state.contacts.theme });
+
+export default connect(mSTP, mDTP)(Header);

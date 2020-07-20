@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import action from './contactActionsTypes';
+import { bool } from 'prop-types';
 
 const items = (state = [], { type, payload }) => {
   switch (type) {
@@ -24,9 +25,20 @@ const filter = (state = '', { type, payload }) => {
   }
 };
 
+const theme = (state = 'dark', { type, payload }) => {
+  switch (type) {
+    case action.CHANGE_THEME:
+      return payload.value ? 'light' : 'dark';
+
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   items,
   filter,
+  theme,
 });
 
 // addContacts = ({ name, number }) => {

@@ -22,8 +22,16 @@ const changeFilter = filter => ({
   },
 });
 
+const changeTheme = value => ({
+  type: actions.CHANGE_THEME,
+  payload: {
+    value,
+  },
+});
+
 export default {
   addContacts,
   removeContacts,
   changeFilter,
+  changeTheme,
 };

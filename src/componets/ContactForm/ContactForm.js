@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import actions from '../../redux/Contact/contactActions';
 
-import { INITIAL_STATE_FORM } from '../../helpers/constants';
-
 import s from './ContactForm.module.css';
 
 class ContactForm extends Component {
