@@ -6,19 +6,18 @@ import actions from '../../redux/Contact/contactActions';
 import styleConxt from '../../contex/ThemeContext';
 
 import styles from './Header.module.css';
-const dark = 'dark';
 
 const Header = ({ theme, toggleTheme }) => (
   <header
     style={{
-      background: styleConxt.dark.headerBg,
-      color: styleConxt.dark.fontColor,
+      background: styleConxt[theme].headerBg,
+      color: styleConxt[theme].fontColor,
     }}
   >
     <div className={styles.theme_selector}>
       <span className={styles.label}>
         Toggle theme: {''}
-        {dark}
+        {theme}
       </span>
       <label className={styles.switch}>
         <input
