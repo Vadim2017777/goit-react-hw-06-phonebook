@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { INITIAL_STATE_FORM } from '../../helpers/constants';
 
 import actions from '../../redux/Contact/contactActions';
 
@@ -8,8 +9,7 @@ import s from './ContactForm.module.css';
 
 class ContactForm extends Component {
   state = {
-    name: '',
-    number: '',
+    ...INITIAL_STATE_FORM,
   };
 
   handleInputChange = ({ target }) => {
@@ -31,7 +31,7 @@ class ContactForm extends Component {
   };
 
   reset = () => {
-    this.setState({ ...this.state });
+    this.setState({ ...INITIAL_STATE_FORM });
   };
 
   render() {

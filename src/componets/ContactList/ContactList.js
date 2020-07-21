@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-import contactActions from '../../redux/Contact/contactActions';
+import actions from '../../redux/Contact/contactActions';
 
 import ContactListItem from '../ContactListItem/ContactListItem';
 
@@ -41,7 +41,7 @@ const mSTP = state => {
 };
 
 const mDTP = {
-  onRemove: contactActions.removeContacts,
+  onRemove: actions.removeContacts,
 };
 
 export default connect(mSTP, mDTP)(ContactList);
