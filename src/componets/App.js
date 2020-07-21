@@ -2,21 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import actions from '../redux/Contact/contactActions';
 
-import { CSSTransition } from 'react-transition-group';
-
 import Header from './Header/Header';
 import Body from './Body/Body';
 import ContactListForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
 import ContactList from './ContactList/ContactList';
 
-import fadeTransition from './transitions/fade.module.css';
-
 class App extends Component {
   componentDidMount() {
     const localStoregeContacts = localStorage.getItem('contacts');
-    console.log(localStoregeContacts);
-
     const { onAddToLS } = this.props;
     if (localStoregeContacts) {
       onAddToLS(JSON.parse(localStoregeContacts));
@@ -31,26 +25,14 @@ class App extends Component {
   }
 
   render() {
+    const showContacts = this.props.contacts.length;
     return (
       <>
         <Header />
         <Body>
           <ContactListForm />
-
-          {/* {showContacts > 1 && (
-            <Filter value={filter} onChange={this.changeFilter} />
-          )} */}
-
-          {/* <CSSTransition
-            in={showContacts > 0}
-            timeout={250}
-            classNames={fadeTransition}
-            unmountOnExit
-          > */}
-          <Filter />
+          {showContacts > 1 && <Filter />}
           <ContactList />
-
-          {/* </CSSTransition> */}
         </Body>
       </>
     );

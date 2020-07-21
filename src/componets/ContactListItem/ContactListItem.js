@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import styleConxt from '../../contex/ThemeContext';
+
 import s from './ContactListItem.module.css';
 
 const TaskListItem = ({ theme, name, number, onRemove }) => (
