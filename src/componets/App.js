@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import actions from '../redux/Contact/contactActions';
+
 import { CSSTransition } from 'react-transition-group';
 
 import Header from './Header/Header';
@@ -10,43 +13,30 @@ import ContactList from './ContactList/ContactList';
 import fadeTransition from './transitions/fade.module.css';
 
 class App extends Component {
-  // componentDidMount() {
-  //   const localStoregeContacts = localStorage.getItem('contacts');
+  componentDidMount() {
+    const localStoregeContacts = localStorage.getItem('contacts');
+    console.log(localStoregeContacts);
 
-  //   if (localStoregeContacts) {
-  //     this.setState({
-  //       contacts: JSON.parse(localStoregeContacts),
-  //     });
-  //   }
-  // }
+    const { onAddToLS } = this.props;
+    if (localStoregeContacts) {
+      onAddToLS(JSON.parse(localStoregeContacts));
+    }
+  }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   const { contacts } = this.state;
-  //   if (contacts !== prevState.contacts) {
-  //     localStorage.setItem('contacts', JSON.stringify(contacts));
-  //   }
-  // }
-
-  toggleTheme = () => {
-    const { theme } = this.state;
-    this.setState({
-      theme: theme === 'dark' ? 'light' : 'dark',
-    });
-  };
+  componentDidUpdate(prevProps, prevState) {
+    const { contacts } = this.props;
+    if (contacts !== prevProps.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(contacts));
+    }
+  }
 
   render() {
     return (
-      /* // <ThemeContext.Provider */
-      //   value={{
-      //     type: theme,
-      //     config: themeConfig[theme],
-      //   }}
-      // >
       <>
         <Header />
         <Body>
           <ContactListForm />
-          <Filter />
+
           {/* {showContacts > 1 && (
             <Filter value={filter} onChange={this.changeFilter} />
           )} */}
@@ -57,13 +47,17 @@ class App extends Component {
             classNames={fadeTransition}
             unmountOnExit
           > */}
+          <Filter />
           <ContactList />
+
           {/* </CSSTransition> */}
         </Body>
       </>
-      // </ThemeContext.Provider>
     );
   }
 }
 
-export default App;
+const mDTP = { onAddToLS: actions.addToLocalStrg };
+const mSTP = state => ({ contacts: state.contacts.items });
+
+export default connect(mSTP, mDTP)(App);

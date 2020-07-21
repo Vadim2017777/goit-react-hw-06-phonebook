@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import whithTheme from '../../hoc/whithTeme';
-
+import { connect } from 'react-redux';
+import styleConxt from '../../contex/ThemeContext';
 import s from './ContactListItem.module.css';
 
 const TaskListItem = ({ theme, name, number, onRemove }) => (
   <li className={s.list_PhoneLs}>
     <p
       style={{
-        color: theme.config.fontColor,
-        background: theme.config.bodybg,
+        color: styleConxt[theme].fontColor,
+        background: styleConxt[theme].bodybg,
       }}
     >
       {name}:{number}
@@ -22,7 +21,8 @@ const TaskListItem = ({ theme, name, number, onRemove }) => (
   </li>
 );
 
-export default whithTheme(TaskListItem);
+const mSTP = state => ({ theme: state.contacts.theme });
+export default connect(mSTP, null)(TaskListItem);
 
 TaskListItem.defaultProps = {
   contacts: [],

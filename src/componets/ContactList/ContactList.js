@@ -31,7 +31,6 @@ const ContactList = ({ contacts, onRemove }) => (
 const mSTP = state => {
   const { items, filter } = state.contacts;
   const normalizedFilter = filter.toLowerCase();
-
   const visibleTasks = items.filter(contact =>
     contact.name.toLowerCase().includes(normalizedFilter),
   );

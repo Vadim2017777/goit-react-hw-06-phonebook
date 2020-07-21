@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 import action from './contactActionsTypes';
-import { bool } from 'prop-types';
 
 const items = (state = [], { type, payload }) => {
   switch (type) {
@@ -10,10 +9,23 @@ const items = (state = [], { type, payload }) => {
     case action.REMOVE:
       return state.filter(contact => contact.id !== payload.contactId);
 
+    case action.ADD_TOLS:
+      return [...state, ...payload.lStrgContct];
+
     default:
       return state;
   }
 };
+
+// const addToLocStrg = (state = [], { type, payload }) => {
+//   switch (type) {
+//     case action.ADD_TOLS:
+//       return [...state, payload.lStrgContct];
+
+//     default:
+//       return state;
+//   }
+// };
 
 const filter = (state = '', { type, payload }) => {
   switch (type) {
@@ -25,10 +37,10 @@ const filter = (state = '', { type, payload }) => {
   }
 };
 
-const theme = (state = 'dark', { type, payload }) => {
+const theme = (state = 'light', { type, payload }) => {
   switch (type) {
     case action.CHANGE_THEME:
-      return payload.value ? 'light' : 'dark';
+      return payload.value ? 'dark' : 'light';
 
     default:
       return state;

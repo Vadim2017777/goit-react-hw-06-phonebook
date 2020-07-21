@@ -74,6 +74,7 @@ const mDTP = { onAddContacts: actions.addContacts };
 const mSTP = state => ({ contacts: state.contacts.items });
 
 export default connect(mSTP, mDTP)(ContactForm);
+
 ContactForm.propTypes = {
   onRemove: PropTypes.func,
 };

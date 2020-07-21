@@ -8,6 +8,13 @@ const addContacts = ({ name, number }) => ({
   },
 });
 
+const addToLocalStrg = lStrgContct => ({
+  type: actions.ADD_TOLS,
+  payload: {
+    lStrgContct,
+  },
+});
+
 const removeContacts = contactId => ({
   type: actions.REMOVE,
   payload: {
@@ -34,4 +41,5 @@ export default {
   removeContacts,
   changeFilter,
   changeTheme,
+  addToLocalStrg,
 };
