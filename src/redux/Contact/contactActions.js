@@ -1,40 +1,17 @@
+import { createAction } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
-import actions from './contactActionsTypes';
 
-const addContacts = ({ name, number }) => ({
-  type: actions.ADD,
-  payload: {
-    items: { id: uuidv4(), name, number },
-  },
-});
+const addContacts = createAction('contact/addContacts', ({ name, number }) => ({
+  payload: { items: { id: uuidv4(), name, number } },
+}));
 
-const addToLocalStrg = lStrgContct => ({
-  type: actions.ADD_TOLS,
-  payload: {
-    lStrgContct,
-  },
-});
+const addToLocalStrg = createAction('contact/addToLocalStorage');
 
-const removeContacts = contactId => ({
-  type: actions.REMOVE,
-  payload: {
-    contactId,
-  },
-});
+const removeContacts = createAction('contact/removeContacts');
 
-const changeFilter = filter => ({
-  type: actions.CHANGE_FILTER,
-  payload: {
-    filter,
-  },
-});
+const changeFilter = createAction('contact/changeFilter');
 
-const changeTheme = value => ({
-  type: actions.CHANGE_THEME,
-  payload: {
-    value,
-  },
-});
+const changeTheme = createAction('contact/changeTheme');
 
 export default {
   addContacts,

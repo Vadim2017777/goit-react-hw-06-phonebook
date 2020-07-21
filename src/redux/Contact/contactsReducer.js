@@ -1,41 +1,32 @@
 import { combineReducers } from 'redux';
-import action from './contactActionsTypes';
+import { createReducer } from '@reduxjs/toolkit';
 
-const items = (state = [], { type, payload }) => {
-  switch (type) {
-    case action.ADD:
-      return [...state, payload.items];
+import action from './contactActions';
 
-    case action.REMOVE:
-      return state.filter(contact => contact.id !== payload.contactId);
+const addContacts = (state, action) => [...state, action.payload.items];
 
-    case action.ADD_TOLS:
-      return [...state, ...payload.lStrgContct];
+const removeContacts = (state, action) =>
+  state.filter(contact => contact.id !== action.payload);
 
-    default:
-      return state;
-  }
-};
+const addToLocalStrg = (state, action) => [...action.payload];
 
-const filter = (state = '', { type, payload }) => {
-  switch (type) {
-    case action.CHANGE_FILTER:
-      return payload.filter;
+const onFilter = (state, action) => action.payload;
 
-    default:
-      return state;
-  }
-};
+const onchangeTheme = (state, action) => (action.payload ? 'dark' : 'light');
 
-const theme = (state = 'light', { type, payload }) => {
-  switch (type) {
-    case action.CHANGE_THEME:
-      return payload.value ? 'dark' : 'light';
+const items = createReducer([], {
+  [action.addContacts]: addContacts,
+  [action.removeContacts]: removeContacts,
+  [action.addToLocalStrg]: addToLocalStrg,
+});
 
-    default:
-      return state;
-  }
-};
+const filter = createReducer('', {
+  [action.changeFilter]: onFilter,
+});
+
+const theme = createReducer('light', {
+  [action.changeTheme]: onchangeTheme,
+});
 
 export default combineReducers({
   items,
