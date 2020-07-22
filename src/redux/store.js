@@ -1,6 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import contactsReducer from './Contact/contactsReducer';
+import themeContactsReducer from './Contact/themeContactsReducer';
 
-const store = configureStore({ reducer: { contacts: contactsReducer } });
+const store = configureStore({
+  reducer: { contacts: contactsReducer, themePhonbk: themeContactsReducer },
+});
 
 export default store;

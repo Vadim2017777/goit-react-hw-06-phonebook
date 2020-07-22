@@ -31,6 +31,6 @@ const Header = ({ theme, toggleTheme }) => (
 );
 
 const mDTP = { toggleTheme: actions.changeTheme };
-const mSTP = state => ({ theme: state.contacts.theme });
+const mSTP = state => ({ theme: state.themePhonbk.theme });
 
 export default connect(mSTP, mDTP)(Header);

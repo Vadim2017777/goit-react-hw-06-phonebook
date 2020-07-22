@@ -16,6 +16,6 @@ const Body = ({ theme, children }) => (
   </div>
 );
 
-const mSTP = state => ({ theme: state.contacts.theme });
+const mSTP = state => ({ theme: state.themePhonbk.theme });
 
 export default connect(mSTP, null)(Body);

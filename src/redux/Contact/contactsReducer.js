@@ -12,8 +12,6 @@ const addToLocalStrg = (state, action) => [...action.payload];
 
 const onFilter = (state, action) => action.payload;
 
-const onchangeTheme = (state, action) => (action.payload ? 'dark' : 'light');
-
 const items = createReducer([], {
   [action.addContacts]: addContacts,
   [action.removeContacts]: removeContacts,
@@ -24,12 +22,7 @@ const filter = createReducer('', {
   [action.changeFilter]: onFilter,
 });
 
-const theme = createReducer('light', {
-  [action.changeTheme]: onchangeTheme,
-});
-
 export default combineReducers({
   items,
   filter,
-  theme,
 });

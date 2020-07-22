@@ -34,7 +34,7 @@ const ContactList = ({ contacts, theme }) => (
 const mSTP = state => {
   const { items, filter } = state.contacts;
   const normalizedFilter = filter.toLowerCase();
-  const theme = state.contacts.theme;
+  const theme = state.themePhonbk.theme;
   const visibleTasks = items.filter(contact =>
     contact.name.toLowerCase().includes(normalizedFilter),
   );
