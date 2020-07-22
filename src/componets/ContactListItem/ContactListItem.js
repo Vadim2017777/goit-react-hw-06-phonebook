@@ -28,7 +28,7 @@ const TaskListItem = ({ theme, name, number, onRemove = () => null }) => (
 
 const mSTP = (state, ownProps) => {
   const item = state.contacts.items.find(item => item.id === ownProps.id);
-  const theme = state.contacts.theme;
+  const theme = state.themePhonbk.theme;
 
   return { theme, ...item };
 };
