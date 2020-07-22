@@ -45,11 +45,7 @@ const mSTP = state => {
   };
 };
 
-const mDTP = {
-  onRemove: actions.removeContacts,
-};
-
-export default connect(mSTP, mDTP)(ContactList);
+export default connect(mSTP, null)(ContactList);
 
 ContactList.propTypes = {
   onRemove: PropTypes.func.isRequired,
