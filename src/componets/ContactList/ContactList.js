@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-import actions from '../../redux/Contact/contactActions';
-
 import ContactListItem from '../ContactListItem/ContactListItem';
 
 import styleConxt from '../../contex/ThemeContext';
@@ -31,10 +29,10 @@ const ContactList = ({ contacts, theme }) => (
   </div>
 );
 
-const mSTP = state => {
-  const { items, filter } = state.contacts;
+const mSTP = ({ contacts, themePhonebook }) => {
+  const { items, filter } = contacts;
   const normalizedFilter = filter.toLowerCase();
-  const theme = state.themePhonbk.theme;
+  const theme = themePhonebook.theme;
   const visibleTasks = items.filter(contact =>
     contact.name.toLowerCase().includes(normalizedFilter),
   );
@@ -48,7 +46,6 @@ const mSTP = state => {
 export default connect(mSTP, null)(ContactList);
 
 ContactList.propTypes = {
-  onRemove: PropTypes.func.isRequired,
   contacts: PropTypes.arrayOf(
     PropTypes.exact({
       name: PropTypes.string.isRequired,

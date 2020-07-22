@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import actions from '../../redux/Contact/contactActions';
+import { onChangeFilter } from '../../redux/Contact/contactActions';
 
 import s from './Filter.module.css';
 
@@ -18,12 +18,12 @@ const Filter = ({ filter, onChange }) => (
   </div>
 );
 
-const mSTP = state => ({
-  value: state.contacts.filter,
+const mSTP = ({ contacts }) => ({
+  value: contacts.filter,
 });
 
 const mDTP = {
-  onChange: actions.changeFilter,
+  onChange: onChangeFilter,
 };
 
 export default connect(mSTP, mDTP)(Filter);

@@ -16,6 +16,6 @@ const Body = ({ theme, children }) => (
   </div>
 );
 
-const mSTP = state => ({ theme: state.themePhonbk.theme });
+const mSTP = ({ themePhonebook }) => ({ theme: themePhonebook.theme });
 
 export default connect(mSTP, null)(Body);

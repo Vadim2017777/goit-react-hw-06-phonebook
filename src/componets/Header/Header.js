@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import actions from '../../redux/Contact/contactActions';
+import { onChangeTheme } from '../../redux/Contact/contactActions';
 
 import styleConxt from '../../contex/ThemeContext';
 
@@ -22,7 +22,7 @@ const Header = ({ theme, toggleTheme }) => (
       <label className={styles.switch}>
         <input
           type="checkbox"
-          onChange={event => toggleTheme(event.currentTarget.checked)}
+          onChange={({ currentTarget }) => toggleTheme(currentTarget.checked)}
         />
         <span className={styles.slider}></span>
       </label>
@@ -30,7 +30,7 @@ const Header = ({ theme, toggleTheme }) => (
   </header>
 );
 
-const mDTP = { toggleTheme: actions.changeTheme };
-const mSTP = state => ({ theme: state.themePhonbk.theme });
+const mDTP = { toggleTheme: onChangeTheme };
+const mSTP = ({ themePhonebook }) => ({ theme: themePhonebook.theme });
 
 export default connect(mSTP, mDTP)(Header);

@@ -1,25 +1,30 @@
 import { combineReducers } from 'redux';
 import { createReducer } from '@reduxjs/toolkit';
 
-import action from './contactActions';
+import {
+  onAddContacts,
+  onRemoveContacts,
+  onChangeFilter,
+  onAddToLocalStorage,
+} from './contactActions';
 
-const addContacts = (state, action) => [...state, action.payload.items];
+const addContacts = (state, { payload }) => [...state, payload.items];
 
-const removeContacts = (state, action) =>
-  state.filter(contact => contact.id !== action.payload);
+const removeContacts = (state, { payload }) =>
+  state.filter(contact => contact.id !== payload);
 
-const addToLocalStrg = (state, action) => [...action.payload];
+const addToLocalStrg = (state, { payload }) => [...payload];
 
-const onFilter = (state, action) => action.payload;
+const onFilter = (state, { payload }) => payload;
 
 const items = createReducer([], {
-  [action.addContacts]: addContacts,
-  [action.removeContacts]: removeContacts,
-  [action.addToLocalStrg]: addToLocalStrg,
+  [onAddContacts]: addContacts,
+  [onRemoveContacts]: removeContacts,
+  [onAddToLocalStorage]: addToLocalStrg,
 });
 
 const filter = createReducer('', {
-  [action.changeFilter]: onFilter,
+  [onChangeFilter]: onFilter,
 });
 
 export default combineReducers({

@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import action from '../../redux/Contact/contactActions';
+import { onRemoveContacts } from '../../redux/Contact/contactActions';
 
 import styleConxt from '../../contex/ThemeContext';
 
 import s from './ContactListItem.module.css';
 
-const TaskListItem = ({ theme, name, number, onRemove = () => null }) => (
+const TaskListItem = ({ theme, name, number, onRemove }) => (
   <li
     className={s.list_PhoneLs}
     style={{
@@ -26,15 +26,15 @@ const TaskListItem = ({ theme, name, number, onRemove = () => null }) => (
   </li>
 );
 
-const mSTP = (state, ownProps) => {
-  const item = state.contacts.items.find(item => item.id === ownProps.id);
-  const theme = state.themePhonbk.theme;
+const mSTP = ({ contacts, themePhonebook }, { id }) => {
+  const item = contacts.items.find(item => item.id === id);
+  const theme = themePhonebook.theme;
 
   return { theme, ...item };
 };
 
-const mDTP = (dispatch, ownProps) => ({
-  onRemove: () => dispatch(action.removeContacts(ownProps.id)),
+const mDTP = (dispatch, { id }) => ({
+  onRemove: () => dispatch(onRemoveContacts(id)),
 });
 
 export default connect(mSTP, mDTP)(TaskListItem);
@@ -45,6 +45,7 @@ TaskListItem.defaultProps = {
 
 TaskListItem.propTypes = {
   onRemove: PropTypes.func,
+  theme: PropTypes.string.isRequired,
   contacts: PropTypes.arrayOf(
     PropTypes.exact({
       name: PropTypes.string.isRequired,

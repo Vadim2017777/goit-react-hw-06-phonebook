@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import actions from '../redux/Contact/contactActions';
+import { onAddToLocalStorage } from '../redux/Contact/contactActions';
 
 import Header from './Header/Header';
 import Body from './Body/Body';
@@ -39,7 +39,7 @@ class App extends Component {
   }
 }
 
-const mDTP = { onAddToLS: actions.addToLocalStrg };
-const mSTP = state => ({ contacts: state.contacts.items });
+const mDTP = { onAddToLS: onAddToLocalStorage };
+const mSTP = ({ contacts }) => ({ contacts: contacts.items });
 
 export default connect(mSTP, mDTP)(App);
