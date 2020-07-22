@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import { INITIAL_STATE_FORM } from '../../helpers/constants';
 
 import actions from '../../redux/Contact/contactActions';

@@ -7,21 +7,24 @@ import actions from '../../redux/Contact/contactActions';
 
 import ContactListItem from '../ContactListItem/ContactListItem';
 
+import styleConxt from '../../contex/ThemeContext';
+
 import s from './ContactList.module.css';
 import transition from '../ContactList/transitions/ContactLsTransition.module.css';
 
-const ContactList = ({ contacts, onRemove }) => (
-  <div className={s.Contact_list}>
+const ContactList = ({ contacts, theme }) => (
+  <div
+    className={s.Contact_list}
+    style={{
+      color: styleConxt[theme].fontColor,
+      background: styleConxt[theme].bodybg,
+    }}
+  >
     <h2>Contacts</h2>
     <TransitionGroup component="ul">
-      {contacts.map(({ id, name, number }) => (
+      {contacts.map(({ id }) => (
         <CSSTransition key={id} timeout={200} classNames={transition}>
-          <ContactListItem
-            key={id}
-            name={name}
-            number={number}
-            onRemove={() => onRemove(id)}
-          />
+          <ContactListItem key={id} id={id} />
         </CSSTransition>
       ))}
     </TransitionGroup>
@@ -31,12 +34,14 @@ const ContactList = ({ contacts, onRemove }) => (
 const mSTP = state => {
   const { items, filter } = state.contacts;
   const normalizedFilter = filter.toLowerCase();
+  const theme = state.contacts.theme;
   const visibleTasks = items.filter(contact =>
     contact.name.toLowerCase().includes(normalizedFilter),
   );
 
   return {
     contacts: visibleTasks,
+    theme,
   };
 };
 
